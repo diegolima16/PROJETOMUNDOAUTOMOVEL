@@ -1,0 +1,151 @@
+package Classes.java;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Loja {
+
+		private static int counter = 0;
+		static ArrayList<Carro> cadastro = new ArrayList<>();
+		static Scanner imput = new Scanner(System.in);
+		private Pessoa proprietarioLoja;
+		private static int quantidade;
+
+		public Loja() {
+		}
+
+		public Loja(Pessoa proprietarioLoja, int quantidade) {
+			this.proprietarioLoja = proprietarioLoja;
+			this.quantidade = quantidade;
+		}
+
+		public static int getCounter() {
+			return counter;
+		}
+
+		public static void setCounter(int counter) {
+			Loja.counter = counter;
+		}
+
+		public Pessoa getProprietarioLoja() {
+			return proprietarioLoja;
+		}
+
+		public void setProprietarioLoja(Pessoa proprietarioLoja) {
+			this.proprietarioLoja = proprietarioLoja;
+		}
+
+		public int getQuantidade() {
+			return quantidade;
+		}
+
+		public void setQuantidade(int quantidade) {
+			this.quantidade = quantidade;
+		}
+
+		@Override
+		public String toString() {
+			return "Loja [ proprietarioLoja=" + proprietarioLoja + ", quantidade=" + quantidade + "]";
+		}
+
+		public static void cadastrarCarro() {
+			Carro carro = new Carro();
+			Pessoa pessoa = new Pessoa();
+			System.out.println("Marca: ");
+			carro.setMarca(imput.next());
+			System.out.println("Modelo");
+			carro.setModelo(imput.next());
+			System.out.println("Placa: ");
+			carro.setPlaca(imput.next());
+			System.out.println("Ano: ");
+			carro.setAno(imput.nextInt());
+			System.out.println("Valor aproximado: ");
+			carro.setValorAproximado(imput.nextFloat());
+			pessoa.setNome("Diego");
+			pessoa.setCpf("70280165447");
+			pessoa.setTelefone("81-981860418");
+			counter += 1;
+			quantidade = counter;
+
+			carro.setDono(pessoa);
+
+			cadastro.add(carro);
+
+			System.out.println("------------------------------------------------------");
+			System.out.println("Automóvel cadastrado com sucesso!!");
+			System.out.println("\n");
+			System.out.println("------------------------------------------------------");
+			Operacao.operacoes();
+			imput.close();
+
+		}
+
+		public static void listarCarros() {
+			if (cadastro.size() > 0) {
+				for (Carro carro : cadastro) {
+					System.out.println(carro);
+				}
+			} else {
+				System.out.println("\n");
+				System.out.println("------------------------------------------------------");
+				System.out.println("--- Não há carros cadastrados!! ---");
+				System.out.println("\n");
+				System.out.println("------------------------------------------------------");
+
+			}
+			Operacao.operacoes();
+
+		}
+
+		public static void buscarPlaca() {
+			System.out.println("Digite a placa do carro: ");
+			Carro carro = new Carro();
+			carro.setPlaca(imput.next());
+			for (int i = 0; i < cadastro.size(); i++) {
+				if (cadastro.get(i).getPlaca().equals(carro.getPlaca())) {
+					System.out.println(cadastro.get(i));
+					Operacao.operacoes();
+
+				}
+
+			}
+			System.out.println("Placa não encontrada!!!");
+			Operacao.operacoes();
+			imput.close();
+
+		}
+
+		public static void buscarMarcaModelo() {
+			System.out.println("Digite a marca ou modelo do carro: ");
+			System.out.println("Se houver a marca/modelo desejado se exibida uma lista!!");
+			
+			Carro carro = new Carro();
+			String marcaModelo = imput.next();
+			carro.setMarca(marcaModelo);
+			carro.setModelo(marcaModelo);
+			for (int i = 0; i < cadastro.size(); i++) {
+				if (cadastro.get(i).getMarca().equals(carro.getMarca())) {
+					System.out.println(cadastro.get(i));
+					//Operacao.operacoes();
+
+				} else if (cadastro.get(i).getModelo().equals(carro.getModelo())) {
+					System.out.println(cadastro.get(i));
+					//Operacao.operacoes();
+
+				}
+			}
+			Operacao.operacoes();
+			imput.close();
+
+		}
+
+		public static void listarPorAno() {
+			for (int i = 0; i < cadastro.size(); i++) {
+				System.out.println("ano : ");
+				System.out.println(cadastro.get(i).getAno());
+			}
+			Operacao.operacoes();
+			imput.close();
+		}
+		
+}
